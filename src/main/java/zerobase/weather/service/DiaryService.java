@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import zerobase.weather.WeatherApplication;
 import zerobase.weather.domain.DateWeather;
 import zerobase.weather.domain.Diary;
+import zerobase.weather.error.InvalidDate;
 import zerobase.weather.repository.DateWeatherRepository;
 import zerobase.weather.repository.DiaryRepository;
 
@@ -41,6 +42,7 @@ public class DiaryService {
 	@Transactional
 	@Scheduled(cron = "0 0 1 * * *") // 새벽 1시 마다 api 가져오기
 	public void saveWeatherDate() {
+		logger.info("오늘도 날씨 데이터 잘 갖고옴");
 		dateWeatherRepository.save(getWeatherFromApi());
 	}
 
@@ -88,6 +90,9 @@ public class DiaryService {
 
 	@Transactional(readOnly = true)
 	public List<Diary> readDiary(LocalDate date) {
+		/*if (date.isAfter(LocalDate.ofYearDay(3050, 1))) {
+			throw new InvalidDate();
+		}*/
 		logger.debug("read diary");
 		return diaryRepository.findAllByDate(date);
 	}
