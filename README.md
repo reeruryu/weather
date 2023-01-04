@@ -9,7 +9,6 @@
 - Spring boot 2.7.7 (JDK1.8)
 - Gradle
 - Mysql
-- JDBC
 - JPA
 - Swagger
 
