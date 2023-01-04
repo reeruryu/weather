@@ -21,7 +21,7 @@ import zerobase.weather.service.DiaryService;
 public class DiaryController {
 	private final DiaryService diaryService;
 
-	@ApiOperation(value = "일기 텍스트와 날씨를 이용해서 DB에 일기 저장", notes = "이것은 노트")
+	@ApiOperation(value = "일기 텍스트와 날씨를 이용해서 DB에 일기 저장합니다", notes = "이것은 노트")
 	@PostMapping("/create/diary")
 	void createDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
 		@RequestBody String text) {
@@ -45,12 +45,14 @@ public class DiaryController {
 		return diaryService.readDiaries(startDate, endDate);
 	}
 
+	@ApiOperation("선택한 날짜의 일기를 수정합니다.")
 	@PutMapping("/update/diary")
 	void updateDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
 		@RequestBody String text) {
 		diaryService.updateDiary(date, text);
 	}
 
+	@ApiOperation("선택한 날짜의 모든 일기 데이터를 삭제합니다.")
 	@DeleteMapping("/delete/diary")
 	void deleteDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 		diaryService.deleteDiary(date);
